@@ -1,0 +1,200 @@
+<!-- HTML -->
+<html>
+<head>
+  <title>Text-to-Speech Demo</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <div id="container">
+    <h2>Instant Gratification Reading</h2>
+    <textarea id="input" placeholder="Enter some text to be synthesized"></textarea>
+    <button id="speak">Speak</button>
+    <div id="game">
+        <div id="game-title">Clicker game</div> <!-- add the game title element within the game element -->
+        <div id="score">Score: <span id="score-value">0</span></div>
+        <button id="clicker">Click me!</button>
+      </div>
+      
+    <div id="video-container">
+      <iframe id="video" src="https://www.youtube.com/embed/dvjy6V4vLlI?autoplay=1&loop=1" frameborder="0" allowfullscreen muted></iframe>
+    </div>
+  </div>
+  
+<!-- CSS -->
+<style>
+    #video-container iframe {
+      pointer-events: none;
+    }
+  </style>
+
+  <!-- JavaScript -->
+  <script>
+    // Get references to the DOM elements
+    const input = document.getElementById('input');
+    const speakButton = document.getElementById('speak');
+    const clickerButton = document.getElementById('clicker');
+    const scoreValue = document.getElementById('score-value');
+  
+    // Set up the event listeners
+    speakButton.addEventListener('click', () => {
+      // Get the text to synthesize
+      const text = input.value;
+  
+      // Create a new SpeechSynthesisUtterance object
+      const utterance = new SpeechSynthesisUtterance(text);
+  
+      // Set the language and voice
+      utterance.lang = 'en-US';
+      utterance.voice = speechSynthesis.getVoices().find(voice => voice.name === 'Google US English');
+  
+      // Play the audio
+      window.speechSynthesis.speak(utterance);
+    });
+  
+    clickerButton.addEventListener('click', () => {
+      // Increase the score by 1
+      scoreValue.textContent = Number(scoreValue.textContent) + 1;
+    });
+  </script>
+</body>
+</html>
+
+<style>
+
+
+body {
+  font-family: sans-serif;
+  background-color: #fafafa;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h2 {
+  margin-top: 18px;
+  margin-bottom: 18px;
+}
+
+#input {
+  width: 100%;
+  max-width: 640px;
+  height: 230px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  resize: none;
+}
+
+#speak {
+  font-size: 16px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #00bcd4;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+#speak:hover {
+  background-color: #0097a7;
+}
+
+#game-title {
+  font-size: 26px; /* increase the font size */
+  font-weight: bold; /* make the font bold */
+  text-align: center; /* center the text */
+  margin-bottom: 10px; /* reduce the bottom margin to separate the title from the rest of the elements */
+}
+
+#game {
+  position: absolute;
+  top: 50%; /* move the element 50% down from the top */
+  right: 50px;
+  transform: translateY(-50%); /* move the element back up by 50% of its own height */
+  display: flex;
+  flex-direction: column; /* change the flex direction to column to stack the elements vertically */
+  align-items: center;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+#score {
+  font-size: 22px;
+  margin-right: 20px;
+}
+
+#score-value {
+  font-weight: bold;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+#clicker {
+  width: 120px; /* set the width and height to the same value and increase it */
+  height: 120px;
+  font-size: 20px;
+  padding: 0; /* remove the padding */
+  border: none;
+  border-radius: 50%; /* make the button round */
+  background-color: #00bcd4;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out; /* add a transition effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#clicker:active {
+  animation: pulse 0.3s ease-in-out; /* add the pulse animation when the button is active */
+}
+
+#clicker:hover {
+  background-color: #0097a7;
+}
+
+
+
+#video-container {
+  position: relative;
+  width: 640px;
+  height: 360px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
+  </style>
+
